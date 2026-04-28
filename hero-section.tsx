@@ -1,34 +1,21 @@
 "use client"
 
-import { Menu, ChevronLeft, ChevronRight, X, ShieldCheck, ArrowRight } from "lucide-react"
-import { useState, useEffect } from "react"
+import { Menu, X, ShieldCheck, ArrowRight, Volume2, VolumeX } from "lucide-react"
+import { useState, useRef } from "react"
 
 export default function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const slides = [
-    { image: "/images/lynx-hero-1.jpg", alt: "Lince majestoso representando força e elegância" },
-    { image: "/images/lynx-hero-2.jpg", alt: "Retrato de lince com olhar penetrante" },
-    { image: "/images/lynx-hero-3.jpg", alt: "Lince caminhando com confiança em ambiente sofisticado" },
-  ]
+  const [isMuted, setIsMuted] = useState(true)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const navItems = [
     { name: "Início", href: "#hero" },
     { name: "Sobre", href: "#mission" },
+    { name: "Parceria Itaú", href: "#itau" },
     { name: "Como Funciona", href: "#community" },
     { name: "Depoimentos", href: "#testimonials" },
     { name: "Contato", href: "#join" },
   ]
-
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length)
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-
-  // Auto advance slides
-  useEffect(() => {
-    const t = setInterval(() => setCurrentSlide((p) => (p + 1) % slides.length), 6500)
-    return () => clearInterval(t)
-  }, [slides.length])
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
@@ -36,49 +23,53 @@ export default function HeroSection() {
     setIsMenuOpen(false)
   }
 
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted
+      setIsMuted(videoRef.current.muted)
+    }
+  }
+
   return (
     <div id="hero" className="relative h-screen w-full overflow-hidden bg-ink-950">
-      {/* Background slides */}
-      {slides.map((slide, idx) => (
-        <div
-          key={idx}
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-[1500ms] ease-in-out"
-          style={{
-            backgroundImage: `url('${slide.image}')`,
-            opacity: currentSlide === idx ? 1 : 0,
-          }}
-          aria-hidden={currentSlide !== idx}
-        />
-      ))}
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/images/lynx-hero-1.jpg"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-vantti.mp4" type="video/mp4" />
+      </video>
 
       {/* Layered overlays for depth and contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/30 to-ink-950/95" />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink-950/80 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink-950/75 via-ink-950/40 to-ink-950/95" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink-950/85 via-ink-950/30 to-transparent" />
 
       {/* Subtle gold grid overlay */}
-      <div className="absolute inset-0 bg-grid-gold opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-gold opacity-20 pointer-events-none" />
 
       {/* Navigation */}
       <nav className="relative z-30 flex items-center justify-between px-6 md:px-12 py-6">
-        {/* Brand wordmark */}
+        {/* Brand logo */}
         <button
           onClick={() => scrollToSection("#hero")}
-          className="group flex items-center gap-3"
+          className="group flex items-center"
           aria-label="VANTTI - Início"
         >
-          <span className="relative flex h-10 w-10 items-center justify-center rounded-sm border border-gold/60">
-            {/* Stylized lynx silhouette mark */}
-            <svg viewBox="0 0 32 32" className="h-6 w-6 text-gold" fill="currentColor" aria-hidden>
-              <path d="M6 4l3 5 3-3 4 1 4-1 3 3 3-5-1 8-2 3 1 5-4 4h-2l-2-2-2 2h-2l-4-4 1-5-2-3-1-8z" />
-              <circle cx="12" cy="14" r="1.2" fill="#0a0a0a" />
-              <circle cx="20" cy="14" r="1.2" fill="#0a0a0a" />
-            </svg>
-          </span>
-          <span className="font-serif text-2xl font-semibold tracking-[0.25em] text-white">VANTTI</span>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp_Image_2026-04-28_at_12.22.48-removebg-preview-kxyZinsmMU1Y8CIHsziQBeTZO2zTsR.png"
+            alt="VANTTI Consórcio Nacional"
+            className="h-12 w-auto object-contain brightness-110 drop-shadow-lg"
+          />
         </button>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-10">
+        <div className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => (
             <button
               key={item.name}
@@ -152,7 +143,7 @@ export default function HeroSection() {
           </div>
 
           {/* Main Title */}
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight text-white text-balance">
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight text-white text-balance drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
             O poder de <span className="text-gold-gradient italic">conquistar</span>
             <br />
             sem comprometer
@@ -161,7 +152,7 @@ export default function HeroSection() {
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-8 max-w-xl text-lg md:text-xl font-light leading-relaxed text-white/80 text-pretty">
+          <p className="mt-8 max-w-xl text-lg md:text-xl font-light leading-relaxed text-white/85 text-pretty drop-shadow-md">
             A VANTTI conduz você até seu próximo grande passo — um imóvel, um veículo ou um novo negócio — com a
             sofisticação, solidez e disciplina de um lince à espreita do momento certo.
           </p>
@@ -188,7 +179,7 @@ export default function HeroSection() {
             <div className="flex items-center gap-2.5">
               <ShieldCheck className="h-5 w-5 text-gold" />
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/50">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/55">
                   Parceiro Financeiro
                 </p>
                 <p className="font-serif text-xl font-semibold text-white">Itaú</p>
@@ -197,7 +188,7 @@ export default function HeroSection() {
             <div className="hidden h-10 w-px bg-white/15 sm:block" />
             <div className="flex items-center gap-2.5">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/50">Atendimento</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/55">Atendimento</p>
                 <p className="font-serif text-base font-medium text-white">100% personalizado e consultivo</p>
               </div>
             </div>
@@ -205,43 +196,22 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Slider controls */}
-      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={prevSlide}
-            className="text-white/70 hover:text-gold transition-colors p-2"
-            aria-label="Slide anterior"
-          >
-            <ChevronLeft size={22} />
-          </button>
-          <div className="flex items-center gap-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`h-px transition-all duration-500 ${
-                  currentSlide === index ? "w-12 bg-gold" : "w-6 bg-white/30 hover:bg-white/60"
-                }`}
-                aria-label={`Slide ${index + 1}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={nextSlide}
-            className="text-white/70 hover:text-gold transition-colors p-2"
-            aria-label="Próximo slide"
-          >
-            <ChevronRight size={22} />
-          </button>
-        </div>
-      </div>
+      {/* Mute toggle */}
+      <button
+        onClick={toggleMute}
+        className="absolute bottom-8 right-6 z-20 inline-flex items-center gap-2 rounded-full border border-white/25 bg-ink-950/60 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/85 backdrop-blur-md transition-all hover:border-gold hover:text-gold"
+        aria-label={isMuted ? "Ativar som" : "Desativar som"}
+      >
+        {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+        <span className="hidden sm:inline">{isMuted ? "Ativar som" : "Silenciar"}</span>
+      </button>
 
-      {/* Side index */}
-      <div className="absolute right-6 top-1/2 z-20 hidden -translate-y-1/2 lg:block">
-        <div className="flex flex-col items-end gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
-          <span className="text-gold">
-            0{currentSlide + 1} <span className="text-white/40">/ 0{slides.length}</span>
+      {/* Scroll hint */}
+      <div className="absolute bottom-10 left-1/2 z-20 hidden -translate-x-1/2 sm:block">
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-white/55">Role para descobrir</span>
+          <span className="relative h-10 w-px bg-gradient-to-b from-gold to-transparent">
+            <span className="absolute -left-1 top-0 h-2 w-2 animate-pulse rounded-full bg-gold" />
           </span>
         </div>
       </div>

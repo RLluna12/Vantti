@@ -8,6 +8,8 @@ import { motion } from "framer-motion"
 import SmoothScrollHero from "@/components/ui/smooth-scroll-hero"
 import Chatbot from "../components/chatbot"
 import Footer from "../components/footer"
+import ItauPartnership from "../components/itau-partnership"
+import MascotSection from "../components/mascot-section"
 import { Building2, Car, Briefcase, ShieldCheck, Award, Users, TrendingUp } from "lucide-react"
 
 export default function Page() {
@@ -98,6 +100,9 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Itaú Partnership */}
+      <ItauPartnership />
+
       {/* Mission Statement */}
       <section id="mission" className="relative flex min-h-screen items-center justify-center overflow-hidden py-24 md:py-32">
         <div className="absolute inset-0 bg-grid-subtle opacity-40 pointer-events-none" />
@@ -144,6 +149,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* Mascot Section */}
+      <MascotSection />
 
       {/* Timeline Section */}
       <section id="community" className="relative bg-background py-24 md:py-32">
