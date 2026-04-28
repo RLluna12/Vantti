@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import SmoothScrollHero from "@/components/ui/smooth-scroll-hero"
 import Chatbot from "../components/chatbot"
 import Footer from "../components/footer"
+import ItauPartnership from "../components/itau-partnership"
 import { Building2, Car, Briefcase, ShieldCheck, Award, Users, TrendingUp } from "lucide-react"
 
 export default function Page() {
@@ -97,6 +98,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* Itaú Partnership */}
+      <ItauPartnership />
 
       {/* Mission Statement */}
       <section id="mission" className="relative flex min-h-screen items-center justify-center overflow-hidden py-24 md:py-32">
