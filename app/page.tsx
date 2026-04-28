@@ -9,6 +9,7 @@ import SmoothScrollHero from "@/components/ui/smooth-scroll-hero"
 import Chatbot from "../components/chatbot"
 import Footer from "../components/footer"
 import ItauPartnership from "../components/itau-partnership"
+import MascotSection from "../components/mascot-section"
 import { Building2, Car, Briefcase, ShieldCheck, Award, Users, TrendingUp } from "lucide-react"
 
 export default function Page() {
@@ -148,6 +149,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* Mascot Section */}
+      <MascotSection />
 
       {/* Timeline Section */}
       <section id="community" className="relative bg-background py-24 md:py-32">

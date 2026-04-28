@@ -3,15 +3,7 @@
 import { motion } from "framer-motion"
 import { Instagram, Linkedin, Facebook, MapPin, Mail, Phone, ArrowRight, ShieldCheck } from "lucide-react"
 
-function LynxMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden>
-      <path d="M6 4l3 5 3-3 4 1 4-1 3 3 3-5-1 8-2 3 1 5-4 4h-2l-2-2-2 2h-2l-4-4 1-5-2-3-1-8z" />
-      <circle cx="12" cy="14" r="1.2" fill="#0a0a0a" />
-      <circle cx="20" cy="14" r="1.2" fill="#0a0a0a" />
-    </svg>
-  )
-}
+
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -32,11 +24,12 @@ export default function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-7"
           >
-            <div className="flex items-center gap-4">
-              <span className="flex h-12 w-12 items-center justify-center rounded-sm border border-gold/60">
-                <LynxMark className="h-7 w-7 text-gold" />
-              </span>
-              <span className="font-serif text-3xl font-semibold tracking-[0.2em]">VANTTI</span>
+            <div className="flex items-center">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp_Image_2026-04-28_at_12.22.48-removebg-preview-kxyZinsmMU1Y8CIHsziQBeTZO2zTsR.png"
+                alt="VANTTI Consórcio Nacional"
+                className="h-16 w-auto object-contain brightness-110"
+              />
             </div>
             <h3 className="mt-8 max-w-xl font-serif text-3xl font-semibold leading-tight tracking-tight md:text-4xl text-balance">
               Pronto para sua próxima <span className="italic text-gold">conquista</span>?

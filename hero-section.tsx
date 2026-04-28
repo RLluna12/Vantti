@@ -55,21 +55,17 @@ export default function HeroSection() {
 
       {/* Navigation */}
       <nav className="relative z-30 flex items-center justify-between px-6 md:px-12 py-6">
-        {/* Brand wordmark */}
+        {/* Brand logo */}
         <button
           onClick={() => scrollToSection("#hero")}
-          className="group flex items-center gap-3"
+          className="group flex items-center"
           aria-label="VANTTI - Início"
         >
-          <span className="relative flex h-10 w-10 items-center justify-center rounded-sm border border-gold/60">
-            {/* Stylized lynx silhouette mark */}
-            <svg viewBox="0 0 32 32" className="h-6 w-6 text-gold" fill="currentColor" aria-hidden>
-              <path d="M6 4l3 5 3-3 4 1 4-1 3 3 3-5-1 8-2 3 1 5-4 4h-2l-2-2-2 2h-2l-4-4 1-5-2-3-1-8z" />
-              <circle cx="12" cy="14" r="1.2" fill="#0a0a0a" />
-              <circle cx="20" cy="14" r="1.2" fill="#0a0a0a" />
-            </svg>
-          </span>
-          <span className="font-serif text-2xl font-semibold tracking-[0.25em] text-white">VANTTI</span>
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp_Image_2026-04-28_at_12.22.48-removebg-preview-kxyZinsmMU1Y8CIHsziQBeTZO2zTsR.png"
+            alt="VANTTI Consórcio Nacional"
+            className="h-12 w-auto object-contain brightness-110 drop-shadow-lg"
+          />
         </button>
 
         {/* Desktop nav */}
