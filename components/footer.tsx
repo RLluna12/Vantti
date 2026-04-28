@@ -1,175 +1,247 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Instagram, Twitter, Facebook, MapPin, Mail, Phone } from "lucide-react"
+import { Instagram, Linkedin, Facebook, MapPin, Mail, Phone, ArrowRight, ShieldCheck } from "lucide-react"
+
+function LynxMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden>
+      <path d="M6 4l3 5 3-3 4 1 4-1 3 3 3-5-1 8-2 3 1 5-4 4h-2l-2-2-2 2h-2l-4-4 1-5-2-3-1-8z" />
+      <circle cx="12" cy="14" r="1.2" fill="#0a0a0a" />
+      <circle cx="20" cy="14" r="1.2" fill="#0a0a0a" />
+    </svg>
+  )
+}
 
 export default function Footer() {
-  return (
-    <footer className="relative bg-white border-t border-gray-200">
-      {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 bg-grid-subtle opacity-20 pointer-events-none" />
+  const year = new Date().getFullYear()
 
-      <div className="container mx-auto px-6 py-16 relative z-10">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand Section */}
+  return (
+    <footer className="relative overflow-hidden bg-ink-950 text-white">
+      <div className="absolute inset-0 bg-grid-gold opacity-15 pointer-events-none" />
+      {/* Gold top border */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
+
+      <div className="container relative z-10 mx-auto px-6 py-20">
+        {/* Top: brand + newsletter */}
+        <div className="grid grid-cols-1 gap-12 border-b border-white/10 pb-16 lg:grid-cols-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="lg:col-span-2"
+            className="lg:col-span-7"
           >
-            <h3 className="text-3xl md:text-4xl font-black tracking-wider text-gray-900 mb-4">WADADA RUN CLUB</h3>
-            <p className="text-lg text-gray-600 leading-relaxed mb-6 max-w-md">
-              Movement isn't an option, it's a lifestyle. Join our global community of runners who believe in pushing
-              boundaries and celebrating every step of the journey.
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 items-center justify-center rounded-sm border border-gold/60">
+                <LynxMark className="h-7 w-7 text-gold" />
+              </span>
+              <span className="font-serif text-3xl font-semibold tracking-[0.2em]">VANTTI</span>
+            </div>
+            <h3 className="mt-8 max-w-xl font-serif text-3xl font-semibold leading-tight tracking-tight md:text-4xl text-balance">
+              Pronto para sua próxima <span className="italic text-gold">conquista</span>?
+            </h3>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-white/70">
+              Receba conteúdos exclusivos sobre cartas de crédito, oportunidades de mercado e estratégias de aquisição
+              direto no seu e-mail.
             </p>
 
-            {/* Social Links */}
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="w-12 h-12 bg-gray-900 hover:bg-gray-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-                aria-label="Follow us on Instagram"
+            <form
+              className="mt-8 flex max-w-md flex-col gap-3 sm:flex-row"
+              onSubmit={(e) => {
+                e.preventDefault()
+              }}
+            >
+              <input
+                type="email"
+                required
+                placeholder="Seu melhor e-mail"
+                className="flex-1 rounded-sm border border-white/20 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              />
+              <button
+                type="submit"
+                className="group inline-flex items-center justify-center gap-2 rounded-sm bg-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink-950 transition-colors hover:bg-gold-400"
               >
-                <Instagram size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-12 h-12 bg-gray-900 hover:bg-gray-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-                aria-label="Follow us on Twitter"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-12 h-12 bg-gray-900 hover:bg-gray-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-                aria-label="Follow us on Facebook"
-              >
-                <Facebook size={20} />
-              </a>
-            </div>
+                Inscrever
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </button>
+            </form>
           </motion.div>
 
-          {/* Quick Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="lg:col-span-5"
+          >
+            {/* Itaú partnership card */}
+            <div className="rounded-sm border border-gold/30 bg-gradient-to-br from-ink-900 to-ink-950 p-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-sm border border-gold/60 bg-ink-950">
+                  <ShieldCheck className="h-6 w-6 text-gold" strokeWidth={1.4} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">
+                    Parceiro Financeiro Oficial
+                  </p>
+                  <p className="mt-2 font-serif text-3xl font-semibold text-white">Itaú</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/65">
+                    A solidez do maior banco privado da América Latina sustentando cada carta de crédito que estruturamos.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Middle: link columns */}
+        <div className="grid grid-cols-2 gap-10 py-16 md:grid-cols-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-xl font-bold text-gray-900 mb-6 tracking-wide">QUICK LINKS</h4>
-            <ul className="space-y-3">
+            <h4 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">Soluções</h4>
+            <ul className="mt-5 space-y-3 text-sm text-white/70">
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-                  Join Us
+                <a href="#" className="hover:text-gold transition-colors">
+                  Carta para Imóveis
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-                  Find Your Chapter
+                <a href="#" className="hover:text-gold transition-colors">
+                  Carta para Veículos
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-                  Training Plans
+                <a href="#" className="hover:text-gold transition-colors">
+                  Crédito para Negócios
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-                  Events
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-                  Community
+                <a href="#" className="hover:text-gold transition-colors">
+                  Investimentos
                 </a>
               </li>
             </ul>
           </motion.div>
 
-          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">Empresa</h4>
+            <ul className="mt-5 space-y-3 text-sm text-white/70">
+              <li>
+                <a href="#mission" className="hover:text-gold transition-colors">
+                  Sobre a VANTTI
+                </a>
+              </li>
+              <li>
+                <a href="#community" className="hover:text-gold transition-colors">
+                  Como Funciona
+                </a>
+              </li>
+              <li>
+                <a href="#testimonials" className="hover:text-gold transition-colors">
+                  Depoimentos
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gold transition-colors">
+                  Trabalhe Conosco
+                </a>
+              </li>
+            </ul>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-xl font-bold text-gray-900 mb-6 tracking-wide">GET IN TOUCH</h4>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <MapPin size={18} className="text-gray-600" />
-                <span className="text-gray-600 font-medium">Kingston, Jamaica</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail size={18} className="text-gray-600" />
-                <a
-                  href="mailto:hello@wadadarun.club"
-                  className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium"
-                >
-                  hello@wadadarun.club
+            <h4 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">Contato</h4>
+            <ul className="mt-5 space-y-3 text-sm text-white/70">
+              <li className="flex items-start gap-2.5">
+                <MapPin size={14} className="mt-0.5 text-gold" />
+                <span>Av. Brigadeiro Faria Lima, 3500
+                  <br />
+                  São Paulo, SP — Brasil
+                </span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Mail size={14} className="text-gold" />
+                <a href="mailto:contato@vantti.com.br" className="hover:text-gold transition-colors">
+                  contato@vantti.com.br
                 </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone size={18} className="text-gray-600" />
-                <a
-                  href="tel:+1876555WADA"
-                  className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium"
-                >
-                  +1 (876) 555-WADA
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Phone size={14} className="text-gold" />
+                <a href="tel:+551130000000" className="hover:text-gold transition-colors">
+                  +55 (11) 3000-0000
                 </a>
-              </div>
+              </li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">Siga-nos</h4>
+            <div className="mt-5 flex gap-3">
+              <a
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-sm border border-white/15 text-white/70 transition-all hover:border-gold hover:bg-gold hover:text-ink-950"
+                aria-label="Instagram"
+              >
+                <Instagram size={16} />
+              </a>
+              <a
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-sm border border-white/15 text-white/70 transition-all hover:border-gold hover:bg-gold hover:text-ink-950"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={16} />
+              </a>
+              <a
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-sm border border-white/15 text-white/70 transition-all hover:border-gold hover:bg-gold hover:text-ink-950"
+                aria-label="Facebook"
+              >
+                <Facebook size={16} />
+              </a>
             </div>
+            <p className="mt-6 text-xs leading-relaxed text-white/50">
+              Atendimento de segunda a sexta, das 9h às 19h. Sábados sob agendamento.
+            </p>
           </motion.div>
         </div>
 
-        {/* Newsletter Signup */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="border-t border-gray-200 pt-12 mb-12"
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <h4 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 tracking-wide">STAY IN THE LOOP</h4>
-            <p className="text-lg text-gray-600 mb-8">
-              Get the latest updates on runs, events, and community news delivered to your inbox.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-md focus:border-gray-900 focus:outline-none text-gray-900 font-medium"
-              />
-              <button className="px-8 py-3 bg-gray-900 hover:bg-gray-700 text-white font-bold rounded-md transition-colors duration-300 tracking-wide">
-                SUBSCRIBE
-              </button>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
-        >
-          <p className="text-gray-600 font-medium">© 2024 Wadada Run Club. All rights reserved.</p>
-
-          <div className="flex space-x-6">
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-              Privacy Policy
+        {/* Bottom bar */}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
+          <p className="text-xs text-white/50">
+            © {year} VANTTI Cartas de Crédito. Todos os direitos reservados.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/50">
+            <a href="#" className="hover:text-gold transition-colors">
+              Política de Privacidade
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors duration-300 font-medium">
-              Terms of Service
+            <a href="#" className="hover:text-gold transition-colors">
+              Termos de Uso
+            </a>
+            <a href="#" className="hover:text-gold transition-colors">
+              LGPD
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   )

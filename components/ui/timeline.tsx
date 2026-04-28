@@ -27,8 +27,8 @@ export function Timeline({ entries, className }: TimelineProps) {
 
   return (
     <div ref={containerRef} className={cn("relative", className)}>
-      {/* Central Timeline Line */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 transform -translate-x-1/2 hidden md:block" />
+      {/* Central Timeline Line - subtle gold */}
+      <div className="absolute left-1/2 top-0 bottom-0 hidden w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-gold/40 to-transparent md:block" />
 
       {entries.map((entry, index) => (
         <TimelineItem key={entry.id} entry={entry} index={index} scrollProgress={scrollYProgress} />
@@ -51,18 +51,21 @@ function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
   })
 
   const opacity = useTransform(itemProgress, [0, 0.3, 0.7, 1], [0.3, 1, 1, 0.3])
-  const scale = useTransform(itemProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8])
+  const scale = useTransform(itemProgress, [0, 0.3, 0.7, 1], [0.92, 1, 1, 0.92])
 
   const isLeft = entry.layout === "left"
+  const stepNumber = String(index + 1).padStart(2, "0")
 
   return (
     <motion.div ref={itemRef} style={{ opacity, scale }} className="relative mb-20 md:mb-32">
       {/* Timeline Dot */}
-      <div className="absolute left-1/2 top-1/2 w-4 h-4 bg-gray-900 rounded-full transform -translate-x-1/2 -translate-y-1/2 z-10 hidden md:block" />
+      <div className="absolute left-1/2 top-1/2 z-10 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gold bg-background md:block">
+        <div className="absolute inset-0.5 bg-gold" />
+      </div>
 
       <div className="container mx-auto px-6">
         <div
-          className={cn("grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center", {
+          className={cn("grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16", {
             "md:text-right": isLeft,
           })}
         >
@@ -74,13 +77,17 @@ function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
             })}
           >
             <div className="sticky top-20">
-              <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-100">
+              <div className="group relative aspect-[3/4] overflow-hidden bg-secondary">
+                {/* Decorative gold border corners */}
+                <div className="pointer-events-none absolute left-3 top-3 z-10 h-8 w-8 border-l border-t border-gold/70" />
+                <div className="pointer-events-none absolute right-3 bottom-3 z-10 h-8 w-8 border-b border-r border-gold/70" />
+
                 <img
                   src={entry.image || "/placeholder.svg"}
                   alt={entry.alt}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/40 via-transparent to-transparent" />
               </div>
             </div>
           </div>
@@ -94,16 +101,29 @@ function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
           >
             <div className="sticky top-32">
               <motion.div
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="space-y-6"
+                className="space-y-5"
               >
-                <h3 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-wide text-gray-900">
+                <div
+                  className={cn("flex items-center gap-3", {
+                    "md:justify-end": isLeft,
+                  })}
+                >
+                  <span className="font-serif text-5xl font-light italic text-gold/80 md:text-6xl">{stepNumber}</span>
+                  <span className="h-px w-12 bg-gold" />
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold">
+                    Etapa {index + 1}
+                  </span>
+                </div>
+                <h3 className="font-serif text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
                   {entry.title}
                 </h3>
-                <p className="text-lg md:text-xl leading-relaxed text-gray-700 max-w-lg">{entry.description}</p>
+                <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:ml-auto md:text-lg">
+                  {entry.description}
+                </p>
               </motion.div>
             </div>
           </div>
